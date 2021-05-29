@@ -1,0 +1,23 @@
+<div class="table-responsive">
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th scope="col" *ngFor="let column of columns">{{ column.title }}</th>
+                <th *ngIf="edit || delete">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of data">
+                <td *ngFor="let col of columns">{{ item[col.fieldName] }}</td>
+                <td *ngIf="edit || delete">
+                    <button (click)="clickEdit(item)" class="btn btn-outline-primary btn-sm" *ngIf="edit">
+                        <i class="fa fa-edit"></i>
+                    </button>
+                    <button (click)="clickDelete(item)" class="btn btn-outline-danger btn-sm mx-2" *ngIf="delete">
+                        <i class="fa fa-trash"></i>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

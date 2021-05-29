@@ -1,0 +1,8 @@
+<h1>Listado de Carros</h1>
+<a class="btn btn-sm btn-primary" routerLink="/cars/0">
+    <i class="fa fa-plus"></i> Crear Carro
+</a>
+<hr>
+<app-grid [data]="cars" [columns]="gridTiltes" [edit]="true" [delete]="true" (OnEdit)="edit($event)"
+    (OnDelete)="delete($event)">
+</app-grid>
