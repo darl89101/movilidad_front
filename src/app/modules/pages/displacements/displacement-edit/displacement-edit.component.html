@@ -1,0 +1,78 @@
+<div class="card card-custom">
+  <ng-container *ngIf="isLoading$ | async">
+    <app-loading></app-loading>
+  </ng-container>
+  <div class="card-header">
+    <div class="card-title">
+      <ng-container *ngIf="displacement">
+        {{ id ? "Editar" : "Crear" }} Desplazamiento
+        <span *ngIf="displacement && displacement.id">'{{ displacement.plaque }}'</span>
+      </ng-container>
+    </div>
+    <div class="card-toolbar">
+      <a type="button" class="btn btn-sm btn-light mx-1" routerLink="/displacements">
+        <i class="fa fa-arrow-left"></i> Volver
+      </a>
+      <button class="btn btn-sm btn-secondary mx-1" (click)="reset()">
+        <i class="fa fa-redo"></i> Limpiar
+      </button>
+      <ng-container *ngIf="displacement">
+        <button type="button" (click)="save()" class="btn btn-sm btn-primary mx-1"
+          [disabled]="formGroup.invalid || (isLoading$ | async)">
+          <i class="fa fa-save"></i>
+          Guardar
+        </button>
+      </ng-container>
+    </div>
+  </div>
+  <div class="card-body">
+    <div *ngIf="formGroup">
+      <form action="#" class="form" [formGroup]="formGroup" (ngSubmit)="save()">
+        <div class="form-group row">
+          <div class="col-4">
+            <label>Ingrese Placa</label>
+            <input type="text" class="form-control form-control-solid" autocomplete="off" placeholder="Placa"
+              formControlName="plaque" />
+            <div class="invalid-feedback" *ngIf="controlHasError('required', 'plaque')">
+              Placa es requerida
+            </div>
+          </div>
+          <div class="col-4">
+            <label>Ingrese Origen</label>
+            <input type="text" class="form-control form-control-solid" autocomplete="off" placeholder="Origen"
+              formControlName="origin" />
+            <div class="invalid-feedback" *ngIf="controlHasError('required', 'origin')">
+              Origen es requerido
+            </div>
+          </div>
+          <div class="col-4">
+            <label>Ingrese Destino</label>
+            <input type="text" class="form-control form-control-solid" autocomplete="off" placeholder="Destino"
+              formControlName="destination" />
+            <div class="invalid-feedback" *ngIf="controlHasError('required', 'destination')">
+              Destino es requerido
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-4">
+            <label>Ingrese Fecha Origen</label>
+            <input type="date" class="form-control form-control-solid" autocomplete="off" placeholder="Fecha Origen"
+              formControlName="origin_date" />
+            <div class="invalid-feedback" *ngIf="controlHasError('required', 'origin_date')">
+              Fecha Origen es requerido
+            </div>
+          </div>
+          <div class="col-4">
+            <label>Ingrese Fecha Destino</label>
+            <input type="date" class="form-control form-control-solid" autocomplete="off" placeholder="Fecha Destino"
+              formControlName="destination_date" />
+            <div class="invalid-feedback" *ngIf="controlHasError('required', 'destination_date')">
+              Fecha destino es requerido
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

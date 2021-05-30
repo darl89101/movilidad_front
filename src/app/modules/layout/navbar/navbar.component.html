@@ -14,13 +14,15 @@
           <a class="nav-link" routerLinkActive="active" aria-current="page" routerLink="/cars">Carros</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Desplazamientos</a>
+          <a class="nav-link" routerLinkActive="active" aria-current="page"
+            routerLink="/displacements">Desplazamientos</a>
         </li>
       </ul>
       <form class="d-flex">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
+      <button class="btn btn-danger mx-2" (click)="logout()">Salir</button>
     </div>
   </div>
 </nav>

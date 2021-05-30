@@ -5,6 +5,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ComponentsModule } from './modules/components/components.module';
+import { AuthInterceptorProvider } from './modules/core/interceptors/auth.interceptor';
+import { ErrorInterceptorProvider } from './modules/core/interceptors/error.interceptor';
 
 @NgModule({
   declarations: [AppComponent],
@@ -15,7 +17,7 @@ import { ComponentsModule } from './modules/components/components.module';
     ReactiveFormsModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [AuthInterceptorProvider, ErrorInterceptorProvider],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
