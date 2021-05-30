@@ -1,1 +1,72 @@
-<p>car-edit works!</p>
+<div class="card card-custom">
+  <ng-container *ngIf="isLoading$ | async">
+    <app-loading></app-loading>
+  </ng-container>
+  <div class="card-header">
+    <div class="card-title">
+      <ng-container *ngIf="car">
+        {{ id ? "Editar" : "Crear" }} Carro
+        <span *ngIf="car && car.id">'{{ car.plaque }}'</span>
+      </ng-container>
+    </div>
+    <div class="card-toolbar">
+      <a type="button" class="btn btn-sm btn-light mx-1" routerLink="/cars">
+        <i class="fa fa-arrow-left"></i> Volver
+      </a>
+      <button class="btn btn-sm btn-secondary mx-1" (click)="reset()">
+        <i class="fa fa-redo"></i> Limpiar
+      </button>
+      <ng-container *ngIf="car">
+        <button type="button" (click)="save()" class="btn btn-sm btn-primary mx-1"
+          [disabled]="formGroup.invalid || (isLoading$ | async)">
+          <i class="fa fa-save"></i>
+          Guardar
+        </button>
+      </ng-container>
+    </div>
+  </div>
+  <div class="card-body">
+    <div *ngIf="formGroup">
+      <form action="#" class="form" [formGroup]="formGroup" (ngSubmit)="save()">
+        <div class="form-group row">
+          <div class="col-4">
+            <label>Seleccione Conductor</label>
+            <select class="form-control form-control-solid" formControlName="driver_id">
+              <option [value]="driver.id" *ngFor="let driver of drivers$ | async">{{ driver.name }}
+              </option>
+            </select>
+            <div class="invalid-feedback" *ngIf="controlHasError('required', 'driver_id')">
+              El cliente es requerido
+            </div>
+          </div>
+          <div class="col-4">
+            <label>Ingrese Marca</label>
+            <input type="text" class="form-control form-control-solid" autocomplete="off" placeholder="Marca"
+              formControlName="tradeMark" />
+            <div class="invalid-feedback" *ngIf="controlHasError('required', 'tradeMark')">
+              Marca es requerido
+            </div>
+          </div>
+          <div class="col-4">
+            <label>Ingrese Placa</label>
+            <input type="text" class="form-control form-control-solid" autocomplete="off" placeholder="Placa"
+              formControlName="plaque" />
+            <div class="invalid-feedback" *ngIf="controlHasError('required', 'plaque')">
+              Placa es requerido
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-4">
+            <label>Ingrese Modelo</label>
+            <input type="number" class="form-control form-control-solid" autocomplete="off" placeholder="Modelo"
+              formControlName="model" />
+            <div class="invalid-feedback" *ngIf="controlHasError('required', 'model')">
+              Modelo es requerido
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

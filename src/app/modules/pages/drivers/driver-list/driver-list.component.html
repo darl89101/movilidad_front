@@ -4,19 +4,19 @@
   </ng-container>
   <div class="card-header">
     <div class="card-title">
-      Listado de Carros
+      Listado de Conductores
     </div>
     <div class="card-toolbar">
       <button class="btn btn-sm btn-success mx-1" (click)="fetch()">
         <i class="fa fa-sync"></i>
       </button>
-      <a class="btn btn-sm btn-primary" routerLink="/cars/0">
-        <i class="fa fa-plus"></i> Crear Carro
-      </a>
+      <!-- <a class="btn btn-sm btn-primary" routerLink="/drivers/0">
+        <i class="fa fa-plus"></i> Crear Conductor
+      </a> -->
     </div>
   </div>
   <div class="card-body">
-    <app-grid [data]="cars" [columns]="gridTiltes" [edit]="true" [delete]="true" (OnEdit)="edit($event)"
+    <app-grid [data]="drivers" [columns]="gridTiltes" (OnEdit)="edit($event)"
       (OnDelete)="delete($event)">
     </app-grid>
   </div>

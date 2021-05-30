@@ -3,7 +3,7 @@
         <thead>
             <tr>
                 <th scope="col" *ngFor="let column of columns">{{ column.title }}</th>
-                <th *ngIf="edit || delete">Acciones</th>
+                <th style="max-width: 120px; width: 120px;" *ngIf="edit || delete">Acciones</th>
             </tr>
         </thead>
         <tbody>

@@ -8,6 +8,13 @@ const routes: Routes = [
     component: LayoutComponent,
     children: [
       {
+        path: 'drivers',
+        loadChildren: () =>
+          import('../pages/drivers/drivers.module').then(
+            (m) => m.DriversModule
+          ),
+      },
+      {
         path: 'cars',
         loadChildren: () =>
           import('../pages/cars/cars.module').then((m) => m.CarsModule),

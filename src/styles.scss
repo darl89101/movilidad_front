@@ -1,2 +1,30 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@fortawesome/fontawesome-free/css/all.min.css";
+@import "node_modules/bootstrap/scss/bootstrap";
+@import "assets/scss/variables";
+@import "assets/scss/card";
+@import "assets/scss/overlay";
+
+.form-group {
+  .invalid-feedback,
+  .valid-feedback {
+    font-size: $form-feedback-font-size;
+    font-weight: $form-feedback-font-weight;
+    color: $danger;
+    display: block;
+  }
+
+  .form-text {
+    font-size: $form-text-font-size;
+    font-weight: $form-text-font-weight;
+  }
+}
+
+// Validation
+.validated {
+  .valid-feedback,
+  .invalid-feedback {
+    display: block;
+  }
+}
+

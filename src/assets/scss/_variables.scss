@@ -1,0 +1,44 @@
+// Gray colors
+$gray-100: #f3f6f9 !default;
+$gray-200: #ebedf3 !default;
+$gray-300: #e4e6ef !default;
+$gray-400: #d1d3e0 !default;
+$gray-500: #b5b5c3 !default;
+$gray-600: #7e8299 !default;
+$gray-700: #5e6278 !default;
+$gray-800: #3f4254 !default;
+$gray-900: #181c32 !default;
+
+$black: #000000 !default;
+// Dark colors
+$dark: $gray-900 !default;
+$dark-75: $gray-800 !default; // Custom variable
+$dark-65: $gray-700 !default; // Custom variable
+$dark-50: $gray-600 !default; // Custom variable
+$dark-25: $gray-400 !default; // Custom variable
+
+$text-muted: $gray-500 !default; // Custom variable
+$white: #ffffff !default;
+
+$border-radius: 0.42rem !default;
+$card-spacer-y: 2rem !default;
+$card-spacer-x: 2.25rem !default;
+$card-box-shadow: 0px 0px 30px 0px rgba(82, 63, 105, 0.05) !default; // card custom shadow
+$card-header-height: 70px !default; // Custom variable
+$card-header-spacer-y: 0.5rem !default; // Custom variable
+$card-sticky-header-height: 70px !default; // Custom variable
+$card-sticky-shadow: 0px 1px 15px 1px rgba(69, 65, 78, 0.1) !default; // Custom variable
+$grid-gutter-width: 25px !default;
+$card-sticky-zindex: 101 !default; // Custom variable
+$card-sticky-header-bg: $white !default; // Custom variable
+$card-border-color: $gray-200 !default;
+$transition: all 0.15s ease !default; // Custom variable
+$card-border-radius: $border-radius !default;
+
+// Variables bootstrap
+$form-label-font-size: 1rem !default; // Custom variable
+$form-label-font-weight: 400 !default; // Custom variable
+$form-feedback-font-size: 0.9rem !default; // Custom variable
+$form-feedback-font-weight: 400 !default; // Custom variable
+$form-text-font-size: 0.9rem !default; // Custom variable
+$form-text-font-weight: 400 !default; // Custom variable

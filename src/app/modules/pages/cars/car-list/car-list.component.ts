@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { CarModel } from 'src/app/modules/core/models/car.model';
+import { CarService } from 'src/app/modules/core/services/car.service';
+import { MessageDialogService } from 'src/app/modules/core/services/message-dialog.service';
 
 @Component({
   selector: 'app-car-list',
@@ -8,6 +11,7 @@ import { CarModel } from 'src/app/modules/core/models/car.model';
   styleUrls: ['./car-list.component.scss'],
 })
 export class CarListComponent implements OnInit {
+  isLoading$: Observable<boolean>;
   gridTiltes = [
     {
       fieldName: 'driverName',
@@ -26,26 +30,34 @@ export class CarListComponent implements OnInit {
       title: 'Modelo',
     },
   ];
-  cars: CarModel[] = [
-    {
-      driverId: 1,
-      driverName: 'Diego Roldán',
-      model: 2000,
-      plaque: 'KUG19D',
-      tradeMark: 'Pulsar',
-    },
-  ];
+  cars: CarModel[] = [];
 
-  constructor(private readonly router: Router) {}
+  constructor(
+    private readonly router: Router,
+    private readonly carService: CarService,
+    private messageDialogService: MessageDialogService
+  ) {
+    this.isLoading$ = this.carService.isLoading$;
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.fetch();
+  }
 
   edit(item: CarModel) {
     console.log('edit: ', item);
-    this.router.navigateByUrl(`/cars/${item.driverId}`);
+    this.router.navigateByUrl(`/cars/${item.id}`);
   }
 
-  delete(item: any) {
+  fetch() {
+    this.carService.getAll().subscribe((cars) => (this.cars = cars));
+  }
+
+  delete(item: CarModel) {
     console.log('delete: ', item);
+    this.carService.delete(item.id).subscribe(() => {
+      this.messageDialogService.showSuccess('Carro eliminado exitosamente!');
+      this.fetch();
+    });
   }
 }
