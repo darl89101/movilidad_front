@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { CarModel } from 'src/app/modules/core/models/car.model';
 import { CarService } from 'src/app/modules/core/services/car.service';
 import { MessageDialogService } from 'src/app/modules/core/services/message-dialog.service';
+import { SearchService } from 'src/app/modules/core/services/search.service';
 
 @Component({
   selector: 'app-car-list',
   templateUrl: './car-list.component.html',
   styleUrls: ['./car-list.component.scss'],
 })
-export class CarListComponent implements OnInit {
+export class CarListComponent implements OnInit, OnDestroy {
   isLoading$: Observable<boolean>;
   gridTiltes = [
     {
@@ -31,17 +32,30 @@ export class CarListComponent implements OnInit {
     },
   ];
   cars: CarModel[] = [];
+  filter: string = '';
+  private subscriptions: Subscription[] = [];
 
   constructor(
     private readonly router: Router,
     private readonly carService: CarService,
-    private messageDialogService: MessageDialogService
+    private messageDialogService: MessageDialogService,
+    private readonly searchService: SearchService
   ) {
     this.isLoading$ = this.carService.isLoading$;
   }
 
   ngOnInit(): void {
     this.fetch();
+    this.subscriptions.push(
+      this.searchService.search$.subscribe((filter) => {
+        this.filter = filter;
+        this.fetch();
+      })
+    );
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach((m) => m.unsubscribe());
   }
 
   edit(item: CarModel) {
@@ -50,7 +64,7 @@ export class CarListComponent implements OnInit {
   }
 
   fetch() {
-    this.carService.getAll().subscribe((cars) => (this.cars = cars));
+    this.carService.getAll(this.filter).subscribe((cars) => (this.cars = cars));
   }
 
   delete(item: CarModel) {

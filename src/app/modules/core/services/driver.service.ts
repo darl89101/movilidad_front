@@ -15,10 +15,10 @@ export class DriverService {
 
   constructor(private readonly http: HttpClient) {}
 
-  getAll() {
+  getAll(filter: string) {
     this.isLoading$.next(true);
     return this.http
-      .get<DriverModel[]>(`${DRIVER_URL}`)
+      .get<DriverModel[]>(`${DRIVER_URL}?filter=${filter}`)
       .pipe(finalize(() => this.isLoading$.next(false)));
   }
 }

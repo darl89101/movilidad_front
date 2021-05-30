@@ -15,10 +15,10 @@ export class CarService {
 
   constructor(private readonly http: HttpClient) {}
 
-  getAll() {
+  getAll(filter: string) {
     this.isLoading$.next(true);
     return this.http
-      .get<CarModel[]>(`${CAR_URL}`)
+      .get<CarModel[]>(`${CAR_URL}?filter=${filter}`)
       .pipe(finalize(() => this.isLoading$.next(false)));
   }
 

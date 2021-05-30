@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { DriverModel } from 'src/app/modules/core/models/driver.model';
 import { DriverService } from 'src/app/modules/core/services/driver.service';
+import { SearchService } from 'src/app/modules/core/services/search.service';
 
 @Component({
   selector: 'app-driver-list',
@@ -21,14 +22,24 @@ export class DriverListComponent implements OnInit, OnDestroy {
     },
   ];
   isLoading$: Observable<boolean>;
+  filter: string = '';
   private subscriptions: Subscription[] = [];
 
-  constructor(private readonly driverService: DriverService) {
+  constructor(
+    private readonly driverService: DriverService,
+    private readonly searchService: SearchService
+  ) {
     this.isLoading$ = this.driverService.isLoading$;
   }
 
   ngOnInit(): void {
     this.fetch();
+    this.subscriptions.push(
+      this.searchService.search$.subscribe((filter) => {
+        this.filter = filter;
+        this.fetch();
+      })
+    );
   }
 
   ngOnDestroy() {
@@ -37,7 +48,7 @@ export class DriverListComponent implements OnInit, OnDestroy {
 
   fetch() {
     this.driverService
-      .getAll()
+      .getAll(this.filter)
       .subscribe((drivers) => (this.drivers = drivers));
   }
 

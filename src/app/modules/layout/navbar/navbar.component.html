@@ -18,9 +18,9 @@
             routerLink="/displacements">Desplazamientos</a>
         </li>
       </ul>
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
+      <form class="d-flex" [formGroup]="formFilter">
+        <input class="form-control me-2" type="search" #text  placeholder="Search" formControlName="searchTerm" aria-label="Search">
+        <button class="btn btn-outline-success" (click)="search(text.value)">Search</button>
       </form>
       <button class="btn btn-danger mx-2" (click)="logout()">Salir</button>
     </div>

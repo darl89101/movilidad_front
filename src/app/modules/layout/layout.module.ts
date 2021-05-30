@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { NavbarComponent } from './navbar/navbar.component';
 import { LayoutComponent } from './layout.component';
 import { LayoutRoutingModule } from './layout-routing.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 /**
  * Módulo Layout que contiene el menú
@@ -10,7 +11,7 @@ import { LayoutRoutingModule } from './layout-routing.module';
  */
 @NgModule({
   declarations: [NavbarComponent, LayoutComponent],
-  imports: [CommonModule, LayoutRoutingModule],
+  imports: [CommonModule, ReactiveFormsModule, LayoutRoutingModule],
   exports: [NavbarComponent],
 })
 export class LayoutModule {}

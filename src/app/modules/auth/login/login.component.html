@@ -18,7 +18,11 @@
           <label for="pass" class="form-label">Contraseña</label>
           <input type="password" class="form-control" formControlName="password" id="pass">
         </div>
-        <button type="submit" class="btn btn-primary">Ingresar</button>
+        <button type="submit" [disabled]="isLoading$ | async" class="btn btn-primary">
+          <i *ngIf="isLoading$ | async" class="fa fa-sync fa-spin"></i>
+          <i *ngIf="!(isLoading$ | async)" class="fa fa-sign-in-alt"></i>
+          Ingresar
+        </button>
       </form>
     </div>
   </div>

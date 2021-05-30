@@ -15,10 +15,10 @@ export class DisplacementService {
 
   constructor(private readonly http: HttpClient) {}
 
-  getAll() {
+  getAll(filter: string) {
     this.isLoading$.next(true);
     return this.http
-      .get<DisplacementModel[]>(`${DISPLACEMENT_URL}`)
+      .get<DisplacementModel[]>(`${DISPLACEMENT_URL}?filter=${filter}`)
       .pipe(finalize(() => this.isLoading$.next(false)));
   }
 

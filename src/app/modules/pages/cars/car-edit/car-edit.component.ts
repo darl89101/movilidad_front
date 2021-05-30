@@ -68,7 +68,7 @@ export class CarEditComponent implements OnInit, OnDestroy {
   }
 
   loadDrivers() {
-    this.drivers$ = this.driverService.getAll();
+    this.drivers$ = this.driverService.getAll('');
   }
 
   getNewInstance() {

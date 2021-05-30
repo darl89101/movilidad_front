@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { DisplacementModel } from 'src/app/modules/core/models/displacement.model';
 import { DisplacementService } from 'src/app/modules/core/services/displacement.service';
 import { MessageDialogService } from 'src/app/modules/core/services/message-dialog.service';
+import { SearchService } from 'src/app/modules/core/services/search.service';
 
 @Component({
   selector: 'app-displacement-list',
   templateUrl: './displacement-list.component.html',
   styleUrls: ['./displacement-list.component.scss'],
 })
-export class DisplacementListComponent implements OnInit {
+export class DisplacementListComponent implements OnInit, OnDestroy {
   isLoading$: Observable<boolean>;
   gridTiltes = [
     {
@@ -35,17 +36,30 @@ export class DisplacementListComponent implements OnInit {
     },
   ];
   displacements: DisplacementModel[] = [];
+  private subscriptions: Subscription[] = [];
+  filter: string = '';
 
   constructor(
     private readonly router: Router,
     private readonly displacementService: DisplacementService,
-    private messageDialogService: MessageDialogService
+    private readonly messageDialogService: MessageDialogService,
+    private readonly searchService: SearchService
   ) {
     this.isLoading$ = this.displacementService.isLoading$;
   }
 
   ngOnInit(): void {
     this.fetch();
+    this.subscriptions.push(
+      this.searchService.search$.subscribe((filter) => {
+        this.filter = filter;
+        this.fetch();
+      })
+    );
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach((m) => m.unsubscribe());
   }
 
   edit(item: DisplacementModel) {
@@ -54,7 +68,7 @@ export class DisplacementListComponent implements OnInit {
 
   fetch() {
     this.displacementService
-      .getAll()
+      .getAll(this.filter)
       .subscribe((displacements) => (this.displacements = displacements));
   }
 
